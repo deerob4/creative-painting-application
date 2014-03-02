@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8">
+	<title>Creative Painting Application</title>
+
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/slider.css">
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+	<noscript>Sorry, you must have JavaScript enabled to use this application.</noscript>
+	
+	<div class="wrapper">
+
+		<h1 class="title">Creative Painting Application</h1>
+		<h2 class="title">Learn to be a creative whizz-kid with this fun, exciting tool!</h2>
+
+		<h1 id="print">My Creative Picture - Created with Creative Painting Application</h1>
+
+		<div class="drawing">
+			<canvas id="paintingArea" height="650" width="1020" style="border: 1px solid #000; margin: 0 auto; background-color: #fff;">
+				<p>Sorry, your browser doesn't support the HTML5 canvas element, so won't be able to use this application.
+				Why not try upgrading to <a href="http://www.firefox.com">Mozilla Firefox</a> or <a href="http://www.chrome.com">Google Chrome?</a></p>
+			</canvas>
+		</div>
+
+		<ul id="toolbox">
+			<li class="tool pencil selected">
+				<span class="pencil-text">Pencil</span>
+				<a href="#" class="icon-cog pencil-cog" data-reveal-id="pencil_settings" data-icon="\e600"></a>
+			</li>
+			<li class="tool paintbrush">
+				<span class="paintbrush-text">Paintbrush</span>
+				<a href="#" class="icon-cog brush-cog" data-reveal-id="paintbrush_settings" data-icon="\e600"></a>
+			</li>
+			<li class="tool sprayer">
+				<span class="sprayer-text">Sprayer</span>
+				<a href="#" class="icon-cog spray-cog" data-reveal-id="sprayer_settings" data-icon="\e600"></a>
+			</li>
+			<li class="new action">New</li>
+			<li class="save action">Save</li>
+			<li class="load action"><a data-reveal-id="painting_browser">Open</a></li>
+			<li class="export action">Export</li>
+			<li class="print action">Print</li>
+
+			<li class="palette">
+				<div class="swatch">#000000</div>
+				<div class="swatch">#7f7f7f</div>
+				<div class="swatch">#880015</div>
+				<div class="swatch">#ed1c24</div>
+				<div class="swatch">#ff7f27</div>
+				<div class="swatch">#fff200</div>
+				<div class="swatch creative">#22b14c</div>
+				<div class="swatch">#00a2e8</div>
+				<div class="swatch">#3f48cc</div>
+				<div class="swatch">#a349a4</div>
+				<div class="swatch">#c3c3c3</div>
+				<div class="swatch">#b97a57</div>
+				<div class="swatch">#ffaec9</div>
+				<div class="swatch">#ffc90e</div>
+				<div class="swatch">#efe4b0</div>
+				<div class="swatch creative">#b5e61d</div>
+				<div class="swatch">#99d9ea</div>
+				<div class="swatch white">#fff</div>
+				<div class="swatch gradient"><span>?</span></div>
+			</li>
+
+		</ul>
+	</div>
+
+	<div id="painting_browser" class="reveal-modal settings">
+		<h1>Open a painting</h1>
+		<span class="close-reveal-modal">Clear All</span>
+		<ul></ul>
+	</div>
+
+	<div id="sprayer_settings" class="reveal-modal settings">
+	    <h1>Sprayer Settings</h1>
+
+		<div class="sprayer_size">
+		    <span>Sprayer Size - 50.00</span>
+			<div class="spray_size_slider settings_slider"></div>
+		</div>
+
+		<div class="sprayer_speed">
+		    <span>Sprayer Speed - 50.00</span>
+			<div class="spray_speed_slider settings_slider"></div>
+		</div>
+
+		<div class="sprayer_horizontal">
+			<span>Horizontal Sprayer Size - 1.00</span>
+			<div class="spray_horizontal_slider settings_slider"></div>
+		</div>
+
+		<div class="sprayer_vertical">
+			<span>Vertical Sprayer Size - 1.00</span>
+			<div class="spray_vertical_slider settings_slider"></div>
+		</div>
+	</div>
+
+	<div id="paintbrush_settings" class="reveal-modal settings" data-animation="fade">
+	    <h1>Paintbrush Settings</h1>
+
+		<div class="paintbrush_size">
+		    <span>Paintbrush Size - 5.00</span>
+			<div class="brush_size_slider settings_slider"></div>
+		</div>
+
+		<div class="paintbrush_angle">
+			<span>Paintbrush Angle - 0.00</span>
+			<div class="brush_angle_slider settings_slider"></div>
+		</div>
+	</div>
+
+	<div id="pencil_settings" class="reveal-modal settings">
+	    <h1>Pencil Settings</h1>
+
+		<div class="pencil_size">
+		    <span>Pencil Size - 1.00</span>
+			<div class="pencil_size_slider settings_slider"></div>
+		</div>
+	</div>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/noUiSlider/5.0.0/jquery.nouislider.min.js"></script>
+	<script src="js/reveal.js"></script>
+	<script src="js/main.js"></script>
+
+</body>
+</html>
