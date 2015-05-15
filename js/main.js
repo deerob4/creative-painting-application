@@ -52,20 +52,20 @@ $(document).ready(function() {
 		$('#painting_browser').append("<li class='close-reveal-modal key'>" + value + "\</li>");
 	}
 
-	function colourGenerator() {
-		var values = "0123456789abcdef".split('');
-		var randomColour = "#";
+	function generateRandomColour() {
+		var values = "0123456789abcdef".split(''),
+			randomColour = "#";
 
 		for (var i = 0; i < 6; i++) {
 			randomColour += values[Math.round(Math.random() * 15)]
 		};
 
-		console.log("The colour that was chosen was " + values);
+		console.log(randomColour + ' was chosen.');
 		$('.gradient').css("background-color", randomColour);
 	};
 
 	$('.gradient').click(function() {
-		colourGenerator();
+		generateRandomColour();
 	});
 
 	$('.swatch:not(".gradient")').each(function() {
@@ -102,18 +102,18 @@ $(document).ready(function() {
 		location.reload();
 	}); 
 
-	var clear = function()
-	{
+	function clear() {
 		context.clearRect(0, 0, $canvas.attr("width"), $canvas.attr("height"));		
 	};
-	var save_painting = function()
-	{
-		var painting_title = prompt("What is the painting called?").toTitleCase();		
-		var canvas = document.getElementById("paintingArea");
+
+	function savePainting() {
+		var painting_title = prompt("What is the painting called?").toTitleCase();
+			canvas = document.getElementById("paintingArea");
+
 		localStorage.setItem(painting_title, canvas.toDataURL());
 	}
-	var load_painting = function()
-	{
+
+	function loadPainting() {
 		var painting_title = prompt("Which painting do you want to call up?").toTitleCase();
 		clear();
 		var painting = new Image;
@@ -122,16 +122,16 @@ $(document).ready(function() {
 			context.drawImage(painting, 0, 0);
 		}
 	} 
-	var export_painting = function()
-	{
-		var canvas = document.getElementById("paintingArea");
+
+	function exportPainting() {
+		var canvas = document.getElementById("paintingArea"),
+			pngUrl = canvas.toDataURL();
+
 		window.open(canvas.toDataURL("image/png"));
-		var pngUrl = canvas.toDataURL();
-		console.log(pngUrl);
 		$(this).removeClass('selected');
 	}
-	var print_painting = function()
-	{
+
+	function printPainting() {
 		var title = prompt("What is your painting called?");
 
 		if(title == "") {
@@ -146,27 +146,27 @@ $(document).ready(function() {
 	$('.new').click(function() {
 		clear();
 	});
+
 	$('.save').click(function() {
 		save_painting();
 	});
-	$('.export').click(function() {
-		export_painting();
-	});
-	$('.print').click(function() {
-		print_painting();
-	})
 
-	$('.tool').click(function(evt){
+	$('.export').click(function() {
+		exportPainting();
+	});
+
+	$('.print').click(function() {
+		printPainting();
+	});
+
+	$('.tool').click(function(evt) {
 		var t_old = tool;
 		tool = $(this).text().trim();
 
-		if( tool != "New" || tool != "Export" || tool != "Print" || tool != "Save" )
-		{
+		if( tool != "New" || tool != "Export" || tool != "Print" || tool != "Save" ) {
 			$('.tool').removeClass("selected");
 			$(this).addClass("selected");
-		}
-		else
-		{
+		} else {
 			tool = t_old;
 		}
 	});
@@ -195,12 +195,10 @@ $(document).ready(function() {
 	})
 
 	//Now it's time for some spraying action!
-	function spray()
-	{
-		var ang,rad,px,py;
+	function spray() {
+		var ang, rad, px, py;
 
-		for(var i = 0; i < spray_speed; i++)
-		{
+		for(var i = 0; i < spray_speed; i++) {
 			ang = Math.random() * 90000 * Math.PI;
 			rad = Math.random() * spray_size;
 			px = lastX + rad * Math.cos(ang);
@@ -213,34 +211,31 @@ $(document).ready(function() {
 	}
 
 	//Now, the main act - oh yes, let's do some drawing!
-	$('#paintingArea').mousedown(function(evt){
+	$('#paintingArea').mousedown(function (evt) {
 
 		drawing = true;
 		lastX = evt.pageX - canvX;
 		lastY = evt.pageY - canvY;
 
-		if(drawing && tool == "Sprayer")
-		{
+		if(drawing && tool == "Sprayer") {
 			spray();;
 		}
-		if( tool == "Paintbrush" )
-		{
+
+		if( tool == "Paintbrush" ) {
 			context.beginPath();
-			context.arc(lastX,last,last,last,Math.PI*2);
+			context.arc(lastX, 0, 0, 0, Math.PI * 2);
 			context.fill();	
 		}
 
-	}).mouseup(function(evt){
+	}).mouseup(function (evt){
 		drawing = false;
-	}).mousemove(function(evt){
+	}).mousemove(function (evt){
 
-		if(drawing)
-		{
+		if(drawing) {
 			var cx = evt.pageX - canvX;
 			var cy = evt.pageY - canvY;
 			
-			switch(tool)
-			{
+			switch(tool) {
 				case "Pencil":
 					context.lineWidth = pencil_size;
 					context.beginPath();
@@ -248,34 +243,34 @@ $(document).ready(function() {
 					context.lineTo(cx,cy);
 					context.stroke();
 				break;
-				case "Paintbrush":
-				{	
-					var dx = cx - lastX;
-					var dy = cy - lastY;
-					var px = lastX;
-					var py = lastY;
-					var steps = Math.floor(Math.sqrt(dx * dx + dy * dy));
+				case "Paintbrush": {	
+					var dx = cx - lastX,
+						dy = cy - lastY,
+						px = lastX,
+						py = lastY,
+						steps = Math.floor(Math.sqrt(dx * dx + dy * dy));
+
 					dx /= steps;
 					dy /= steps;
-					for(var i= 0; i < steps; ++i)
-					{
+
+					for(var i= 0; i < steps; ++i) {
 						context.beginPath();
 						context.arc(px, py, brush_size, brush_angle, Math.PI*2);
-						context.fill();	
+						context.fill();
+
 						px += dx;
 						py += dy;
 					}
 				}
 				break;
 			}
+
 			lastX = cx;
 			lastY = cy;
 		}
 	}).mouseenter(function(evt){
-
 		lastX = evt.pageX - canvX;
 		lastY = evt.pageY - canvY;
-
 	});
 
 	String.prototype.toTitleCase = function() {
